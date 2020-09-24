@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Spock Testing</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>Spock Framework</h3>
+            <p>yay Testing</p>
+        </section>
+        <section>
+            <h3>Agenda</h3>
+            <p class="fragment">Was ist Spock?</p>
+            <p class="fragment">Basic Features von Spock</p>
+            <p class="fragment">Live Coding</p>
+        </section>
+        <!-- zuerst expect test,
+        when und then,
+        given auch noch
+        parametrisierte tests,
+        mocking
+        maven dependencies
+        live coding -->
+        <section>
+            <h3>Spock?</h3>
+            <p class="fragment">Testing Framework</p>
+            <p class="fragment">Groovy</p>
+            <p class="fragment">Konzepte von BDD</p>
+        </section>
+
+        <!-- VERWENDUNG METHODEN VON SPOCK-->
+        <section data-auto-animate>
+            <h3>Wie verwendet man Spock?</h3>
+            <pre data-id="code-animation2">
+                <code class="groovy" data-trim data-line-numbers>
+import spock.lang.Specification
+
+class ServiceTest extends Specification {
+                    ...
+}</code></pre>
+        </section>
+
+        <section data-auto-animate>
+            <h3>Alle möglichen Testsachen </h3>
+            <p>groovy</p>
+            <pre data-id="code-animation2">
+                <code class="groovy" data-trim data-line-numbers>
+import spock.lang.Specification
+
+class ServiceTest extends Specification {
+    def "most basic Test" () {
+        expect: "it is true"
+         5 + 4 == 9
+    }
+
+     def "test"() {
+        given: "test setup"
+        when: "execute method"
+        then: "verify result"
+    }
+}</code></pre>
+        </section>
+        <!-- EXPECT, GIVEN, WHEN, THEN-->
+        <section>
+            <h3>Most Basic Test</h3>
+            <p>groovy</p>
+            <pre>
+                <code class="groovy" data-trim data-line-numbers>
+    def "basic test"() {
+        expect:
+            true != false
+    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <section data-auto-animate>
+                <h3>Mehr Struktur</h3>
+                <pre data-id="code-animation3">
+                <code class="groovy" data-trim data-line-numbers>
+    def "more elaborated test"() {
+        when:
+            def result = 8 + 2
+        then:
+            result == 10
+    }
+                </code>
+            </pre>
+            </section>
+            <section data-auto-animate>
+                <h3>Mehr Struktur</h3>
+                <pre data-id="code-animation3">
+                <code class="groovy" data-trim data-line-numbers>
+    def "more elaborated test"() {
+        given:
+            def a = 2
+            def b = 8
+        when:
+            def result = a + b
+        then:
+            result == 10
+    }
+                </code>
+            </pre>
+            </section>
+        </section>
+        <!-- PARAMETERISIERTE TESTS UNROLL TESTS-->
+        <section data-auto-animate>
+            <h3>Parametrisierte Tests</h3>
+            <pre data-id="parameter">
+                <code class="groovy" data-trim data-line-numbers>
+    @Unroll
+    def "parameterized test"() {
+        when:
+            def result = a + b
+        then:
+            result == expected
+        where:
+            a | b  | expected
+            1 | 2  | 3
+            5 | 10 | 15
+    }
+                </code>
+            </pre>
+        </section>
+        <section data-auto-animate>
+            <h3>Parametrisierte Tests</h3>
+            <pre data-id="parameter">
+                <code class="groovy" data-trim data-line-numbers>
+    @Unroll
+    def "parameterized test where #a + #b = #expected"() {
+        when:
+            def result = a + b
+        then:
+            result == expected
+        where:
+            a | b  | expected
+            1 | 2  | 3
+            5 | 10 | 15
+    }
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h3>Parametrisierte Tests</h3>
+            <p>Bild mit output der Testnamen</p>
+        </section>
+
+        <!-- MOCKING -->
+        <section>
+            <h3>Mocking</h3>
+            <pre>
+                <code class="groovy" data-trim data-line-numbers>
+    def "service nutzt Mock"() {
+        given:
+            def mockRepository = Mock(RepositoryClass)
+        when:
+            service.findNumberInRepository()
+        then:
+            mockRepository.findNumber() >> 42
+    }
+                </code>
+            </pre>
+        </section>
+
+
+
+        <!-- MAVEN DINGE-->
+        <section>
+            <section data-auto-animate>
+                <h3>Maven Dependencies</h3>
+                <pre data-id="plugin1"><code class="xml" data-trim data-line-numbers>
+                <dependency>
+                    <groupId>org.spockframework</groupId>
+                    <artifactId>spock-core</artifactId>
+                    <version>1.3-groovy-2.5</version>
+                </dependency>
+            </code></pre>
+            </section>
+            <!-- hier runter-->
+
+            <section data-auto-animate>
+                <h3>Maven Dependencies</h3>
+                <pre data-id="plugin1"><code class="xml" data-trim data-line-numbers>
+                <dependency>
+                    <groupId>org.spockframework</groupId>
+                    <artifactId>spock-core</artifactId>
+                    <version>1.3-groovy-2.5</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.spockframework</groupId>
+                    <artifactId>spock-spring</artifactId>
+                    <version>1.3-groovy-2.5</version>
+                </dependency>
+            </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <p>gmavenplus plugin für groovy</p>
+            <pre><code class="xml" data-trim>
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.9.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>compileTests</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+            </code></pre>
+        </section>
+        <!-- LIVE DEMO -->
+        <section>
+            <h3>Andere coole Sachen</h3>
+            <p>@Ignore</p>
+            <p>thrown(Exception)</p>
+            <p>Dokumentation mit given, when, then</p>
+            <p>Spock reports</p>
+            <p></p>
+        </section>
+        <section>
+            <h3>Live Coding</h3>
+        </section>
+        <section>
+            <h3>Quellen</h3>
+            <p>http://spockframework.org/spock/docs/1.3/all_in_one.html</p>
+            <p>https://www.baeldung.com/groovy-spock</p>
+            <p>https://github.com/matejo2/spock-groovy-demo</p>
+        </section>
+        <section>Slide 2</section>
+    </div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>
