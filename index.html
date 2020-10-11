@@ -128,8 +128,19 @@ class ServiceTest extends Specification {
 
 <!-- EXPECT, GIVEN, WHEN, THEN-->
         <section>
-            <h3>Most Basic Test</h3>
-            <p>groovy</p>
+            <h3>Basic Test with JUnit</h3>
+            <pre >
+                <code class="java"  data-trim data-line-numbers>
+    @Test
+    public void basic_test() {
+         assertEquals(true, false);
+    }
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h3>Basic Test with Spock</h3>
             <pre>
                 <code class="groovy" data-trim data-line-numbers>
     def "basic test"() {
@@ -139,12 +150,26 @@ class ServiceTest extends Specification {
                 </code>
             </pre>
         </section>
+
+        <section>
+            <h3>Mehr Struktur Junit</h3>
+            <pre>
+                <code class="java" data-trim data-line-numbers>
+    @Test
+    public void more_elaborate() {
+        var result = 8 + 2;
+        assertEquals(result, 10);
+    }
+                </code>
+            </pre>
+        </section>
+
 <section>
         <section data-auto-animate>
-            <h3>Mehr Struktur</h3>
+            <h3>Mehr Struktur Spock</h3>
             <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
-    def "more elaborated test"() {
+    def "more elaborate test"() {
         when:
             def result = 8 + 2
         then:
@@ -153,11 +178,12 @@ class ServiceTest extends Specification {
                 </code>
             </pre>
         </section>
+
         <section data-auto-animate>
             <h3>Mehr Struktur</h3>
             <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
-    def "more elaborated test"() {
+    def "more elaborate test"() {
         given:
             def a = 2
             def b = 8
