@@ -197,12 +197,35 @@ class ServiceTest extends Specification {
         </section>
 </section>
 <!-- PARAMETERISIERTE TESTS UNROLL TESTS-->
+        <section>
+            <h3>Parametrieserte Tests with Junit</h3>
+            <!-- #WhyAreYOuSoUgly -->
+            <pre>
+                <code class="java" data-trim data-line-numbers>
+    @ParameterizedTest
+    @MethodSource("testInputs")
+    public void addNumbers(int a, int b, int expected) {
+        int result = a + b;
+        assertEquals(expected, result);
+    }
+
+    private static Stream< Arguments> testInputs() {
+        return Stream.of(
+                Arguments.of(1, 2, 3),
+                Arguments.of(2, 8, 10),
+                Arguments.of(5, 10, 15)
+        );
+    }
+                </code>
+            </pre>
+        </section>
+
         <section data-auto-animate>
-            <h3>Parametrisierte Tests</h3>
+            <h3>Parametrisierte Tests with Spock</h3>
             <pre data-id="parameter">
                 <code class="groovy" data-trim data-line-numbers>
     @Unroll
-    def "parameterized test"() {
+    def "add numbers together"() {
         when:
             def result = a + b
         then:
@@ -210,6 +233,7 @@ class ServiceTest extends Specification {
         where:
             a | b  | expected
             1 | 2  | 3
+            2 | 8  | 10
             5 | 10 | 15
     }
                 </code>
