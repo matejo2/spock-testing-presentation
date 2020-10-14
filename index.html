@@ -97,7 +97,6 @@
         </section>
 
 
-
         <!-- VERWENDUNG METHODEN VON SPOCK-->
 
         <section data-auto-animate>
@@ -127,7 +126,7 @@ class ServiceTest extends Specification {
         </section>
 
 
-<!-- EXPECT, GIVEN, WHEN, THEN-->
+        <!-- EXPECT, GIVEN, WHEN, THEN-->
         <section>
             <h3>Basic Test with Spock</h3>
             <pre>
@@ -139,12 +138,11 @@ class ServiceTest extends Specification {
                 </code>
             </pre>
         </section>
-
-
 <section>
-        <section data-auto-animate>
-            <h3>Mehr Struktur</h3>
-            <pre data-id="code-animation3">
+
+            <section data-auto-animate>
+                <h3>Mehr Struktur</h3>
+                <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
     def "more elaborate test"() {
         when:
@@ -154,11 +152,11 @@ class ServiceTest extends Specification {
     }
                 </code>
             </pre>
-        </section>
+            </section>
 
-        <section data-auto-animate>
-            <h3>Mehr Struktur</h3>
-            <pre data-id="code-animation3">
+            <section data-auto-animate>
+                <h3>Mehr Struktur</h3>
+                <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
     def "more elaborate test"() {
         given:
@@ -171,9 +169,9 @@ class ServiceTest extends Specification {
     }
                 </code>
             </pre>
+            </section>
         </section>
-</section>
-<!-- PARAMETERISIERTE TESTS UNROLL TESTS-->
+        <!-- PARAMETERISIERTE TESTS UNROLL TESTS-->
 
         <section>
             <h3>Parametrisierte Tests</h3>
@@ -186,7 +184,7 @@ class ServiceTest extends Specification {
                 <code class="java" data-trim data-line-numbers>
     @ParameterizedTest
     @MethodSource("testInputs")
-    public void addNumbers(int a, int b, int expected) {
+    public void addNumbersTogether(int a, int b, int expected) {
         int result = a + b;
         assertEquals(expected, result);
     }
@@ -226,7 +224,7 @@ class ServiceTest extends Specification {
             <pre data-id="parameter">
                 <code class="groovy" data-trim data-line-numbers>
     @Unroll
-    def "parameterized test where #a + #b = #expected"() {
+    def "adding number #a and #b results in #expected"() {
         when:
         def result = a + b
         then:
@@ -242,10 +240,10 @@ class ServiceTest extends Specification {
         </section>
         <section>
             <h3>Parametrisierte Tests</h3>
-<p>Bild mit output der Testnamen</p>
+            <p>Bild mit output der Testnamen</p>
         </section>
 
-<!-- MOCKING -->
+        <!-- MOCKING -->
         <section>
             <h3>Mocking</h3>
             <pre>
@@ -254,17 +252,31 @@ class ServiceTest extends Specification {
         given:
         def mockRepository = Mock(RepositoryClass)
         when:
-        service.findNumberInRepository()
+        def result = service.findNumberInRepository()
         then:
+        result == 42
         mockRepository.findNumber() >> 42
     }
                 </code>
             </pre>
         </section>
 
-<section>
-    <h3>Testing with Error</h3>
-    <pre>
+            <section data-auto-animate>
+                <h3>Testing with Exceptions</h3>
+                <pre data-id="exceptions">
+        <code class="groovy" data-trim data-line-numbers>
+     def "test error"() {
+        when:
+        service.doSomething(null)
+        then:
+        thrown()
+    }
+        </code>
+    </pre>
+            </section>
+            <section data-auto-animate>
+                <h3>Testing with Exceptions</h3>
+                <pre data-id="exceptions">
         <code class="groovy" data-trim data-line-numbers>
      def "test error"() {
         when:
@@ -274,9 +286,9 @@ class ServiceTest extends Specification {
     }
         </code>
     </pre>
-</section>
+            </section>
 
-<!-- LIVE DEMO -->
+        <!-- LIVE DEMO -->
         <section>
             <h3>Andere coole Sachen</h3>
             <p>@Ignore</p>
