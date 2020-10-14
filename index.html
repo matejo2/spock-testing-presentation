@@ -17,8 +17,12 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h3>Spock Framework</h3>
-            <p>yay Testing</p>
+            <h3>Einführung ins Spock Framework</h3>
+        </section>
+        <section>
+            <h3>Wer bin ich?</h3>
+            <p class="fragment">Jolanda Wilfer</p>
+            <p class="fragment">twitter: @matejo</p>
         </section>
         <section>
             <h3>Agenda</h3>
@@ -37,7 +41,7 @@
             <h3>Spock?</h3>
             <p class="fragment">Testing Framework</p>
             <p class="fragment">Groovy</p>
-            <p class="fragment">Konzepte von BDD</p>
+            <p class="fragment">Lesbare Tests</p>
         </section>
 
         <!-- MAVEN DINGE-->
@@ -92,7 +96,10 @@
             </code></pre>
         </section>
 
+
+
         <!-- VERWENDUNG METHODEN VON SPOCK-->
+
         <section data-auto-animate>
             <!-- WICHTIG! das ist eine Groovy klasse-->
             <h3>Wie verwende ich Spock?</h3>
@@ -106,74 +113,44 @@ class ServiceTest extends Specification {
         </section>
 
         <section data-auto-animate>
-            <h3>Alle möglichen Testsachen </h3>
-            <p>groovy</p>
+            <h3>Wie verwende ich Spock?</h3>
             <pre data-id="code-animation2">
                 <code class="groovy" data-trim data-line-numbers>
 import spock.lang.Specification
 
 class ServiceTest extends Specification {
-    def "most basic Test" () {
-        expect: "it is true"
-         5 + 4 == 9
-    }
-
-     def "test"() {
-        given: "test setup"
-        when: "execute method"
-        then: "verify result"
+    def "basic Test" () {
+        expect:
+         true != false
     }
 }</code></pre>
         </section>
 
-<!-- EXPECT, GIVEN, WHEN, THEN-->
-        <section>
-            <h3>Basic Test with JUnit</h3>
-            <pre >
-                <code class="java"  data-trim data-line-numbers>
-    @Test
-    public void basic_test() {
-         assertEquals(true, false);
-    }
-                </code>
-            </pre>
-        </section>
 
+<!-- EXPECT, GIVEN, WHEN, THEN-->
         <section>
             <h3>Basic Test with Spock</h3>
             <pre>
                 <code class="groovy" data-trim data-line-numbers>
     def "basic test"() {
         expect:
-            true != false
+        true != false
     }
                 </code>
             </pre>
         </section>
 
-        <section>
-            <h3>Mehr Struktur Junit</h3>
-            <pre>
-                <code class="java" data-trim data-line-numbers>
-    @Test
-    public void more_elaborate() {
-        var result = 8 + 2;
-        assertEquals(result, 10);
-    }
-                </code>
-            </pre>
-        </section>
 
 <section>
         <section data-auto-animate>
-            <h3>Mehr Struktur Spock</h3>
+            <h3>Mehr Struktur</h3>
             <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
     def "more elaborate test"() {
         when:
-            def result = 8 + 2
+        def result = 8 + 2
         then:
-            result == 10
+        result == 10
     }
                 </code>
             </pre>
@@ -185,20 +162,25 @@ class ServiceTest extends Specification {
                 <code class="groovy" data-trim data-line-numbers>
     def "more elaborate test"() {
         given:
-            def a = 2
-            def b = 8
+        def a = 2
+        def b = 8
         when:
-            def result = a + b
+        def result = a + b
         then:
-            result == 10
+        result == 10
     }
                 </code>
             </pre>
         </section>
 </section>
 <!-- PARAMETERISIERTE TESTS UNROLL TESTS-->
+
         <section>
-            <h3>Parametrieserte Tests with Junit</h3>
+            <h3>Parametrisierte Tests</h3>
+        </section>
+
+        <section>
+            <h3>Junit</h3>
             <!-- #WhyAreYOuSoUgly -->
             <pre>
                 <code class="java" data-trim data-line-numbers>
@@ -221,20 +203,20 @@ class ServiceTest extends Specification {
         </section>
 
         <section data-auto-animate>
-            <h3>Parametrisierte Tests with Spock</h3>
+            <h3>Spock</h3>
             <pre data-id="parameter">
                 <code class="groovy" data-trim data-line-numbers>
     @Unroll
     def "add numbers together"() {
         when:
-            def result = a + b
+        def result = a + b
         then:
-            result == expected
+        result == expected
         where:
-            a | b  | expected
-            1 | 2  | 3
-            2 | 8  | 10
-            5 | 10 | 15
+        a | b  | expected
+        1 | 2  | 3
+        2 | 8  | 10
+        5 | 10 | 15
     }
                 </code>
             </pre>
@@ -246,13 +228,14 @@ class ServiceTest extends Specification {
     @Unroll
     def "parameterized test where #a + #b = #expected"() {
         when:
-            def result = a + b
+        def result = a + b
         then:
-            result == expected
+        result == expected
         where:
-            a | b  | expected
-            1 | 2  | 3
-            5 | 10 | 15
+        a | b  | expected
+        1 | 2  | 3
+        2 | 8  | 10
+        5 | 10 | 15
     }
                 </code>
             </pre>
@@ -269,23 +252,34 @@ class ServiceTest extends Specification {
                 <code class="groovy" data-trim data-line-numbers>
     def "service nutzt Mock"() {
         given:
-            def mockRepository = Mock(RepositoryClass)
+        def mockRepository = Mock(RepositoryClass)
         when:
-            service.findNumberInRepository()
+        service.findNumberInRepository()
         then:
-            mockRepository.findNumber() >> 42
+        mockRepository.findNumber() >> 42
     }
                 </code>
             </pre>
         </section>
 
-
+<section>
+    <h3>Testing with Error</h3>
+    <pre>
+        <code class="groovy" data-trim data-line-numbers>
+     def "test error"() {
+        when:
+        service.doSomething(null)
+        then:
+        thrown(NullPointerException)
+    }
+        </code>
+    </pre>
+</section>
 
 <!-- LIVE DEMO -->
         <section>
             <h3>Andere coole Sachen</h3>
             <p>@Ignore</p>
-            <p>thrown(Exception)</p>
             <p>Dokumentation mit given, when, then</p>
             <p>Spock reports</p>
             <p></p>
