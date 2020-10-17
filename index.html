@@ -22,7 +22,7 @@
         <section>
             <h3>Wer bin ich?</h3>
             <p class="fragment">Jolanda Wilfer</p>
-            <p class="fragment">twitter: @matejo</p>
+            <p class="fragment">github: matejo2</p>
         </section>
         <section>
             <h3>Agenda</h3>
@@ -161,6 +161,7 @@ class ServiceTest extends Specification {
     def "more elaborate test"() {
         given:
         def a = 2
+        and:
         def b = 8
         when:
         def result = a + b
@@ -240,7 +241,7 @@ class ServiceTest extends Specification {
         </section>
         <section>
             <h3>Parametrisierte Tests</h3>
-            <img src="/images/spock-unroll.png" > <!-- height="100" width="200"> -->
+            <img src="/images/spock-unroll.png" width=150% height=150%> <!-- height="100" width="200"> -->
         </section>
 
         <!-- MOCKING -->
@@ -250,12 +251,12 @@ class ServiceTest extends Specification {
                 <code class="groovy" data-trim data-line-numbers>
     def "service nutzt Mock"() {
         given:
-        def mockRepository = Mock(RepositoryClass)
+        def RepositoryClass mockRepository = Mock()
         when:
         def result = service.findNumberInRepository()
         then:
+        1 * mockRepository.findNumber() >> 42
         result == 42
-        mockRepository.findNumber() >> 42
     }
                 </code>
             </pre>
@@ -305,7 +306,9 @@ class ServiceTest extends Specification {
             <p>https://www.baeldung.com/groovy-spock</p>
             <p>https://github.com/matejo2/spock-groovy-demo</p>
         </section>
-        <section>Slide 2</section>
+        <section>
+            <h3>Thank you</h3>
+        </section>
     </div>
 </div>
 
