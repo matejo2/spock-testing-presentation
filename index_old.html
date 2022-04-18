@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Spock Testing Framework</title>
+    <title>Spock Testing</title>
 
     <link rel="stylesheet" href="dist/reset.css">
     <link rel="stylesheet" href="dist/reveal.css">
@@ -17,35 +17,34 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h3>Einführung ins Spock Testing Framework</h3>
+            <h3>Einführung ins Spock Framework</h3>
         </section>
         <section>
             <h3>Wer bin ich?</h3>
             <p class="fragment">Jolanda Wilfer</p>
             <p class="fragment">github: matejo2</p>
         </section>
-        <!-- Maybe delete this -->
         <section>
             <h3>Agenda</h3>
-            <p class="fragment">(Basic) Features von Spock</p>
+            <p class="fragment">Was ist Spock?</p>
+            <p class="fragment">Basic Features von Spock</p>
             <p class="fragment">Live Coding</p>
         </section>
         <!-- zuerst expect test,
         when und then,
         given auch noch
-        expceptions
-        mocking
         parametrisierte tests,
+        mocking
         maven dependencies
         live coding -->
-       <!-- Kueze Gescihcte vielleicht noch dazu-->
         <section>
             <h3>Spock?</h3>
-            <p class="fragment">BDD </p>
+            <p class="fragment">Testing Framework</p>
             <p class="fragment">Groovy</p>
+            <p class="fragment">Lesbare Tests</p>
         </section>
 
-        <!-- MAVEN DINGE Maybe at the end-->
+        <!-- MAVEN DINGE-->
         <section>
             <section data-auto-animate>
                 <h3>Wie verwende ich Spock?</h3>
@@ -54,7 +53,7 @@
                 <dependency>
                     <groupId>org.spockframework</groupId>
                     <artifactId>spock-core</artifactId>
-                    <version>2.2-M1-groovy-4.0</version>
+                    <version>1.3-groovy-2.5</version>
                 </dependency>
             </code></pre>
             </section>
@@ -67,12 +66,12 @@
                 <dependency>
                     <groupId>org.spockframework</groupId>
                     <artifactId>spock-core</artifactId>
-                    <version>2.2-M1-groovy-4.0</version>
+                    <version>1.3-groovy-2.5</version>
                 </dependency>
                 <dependency>
                     <groupId>org.spockframework</groupId>
                     <artifactId>spock-spring</artifactId>
-                    <version>2.2-M1-groovy-4.0</version>
+                    <version>1.3-groovy-2.5</version>
                 </dependency>
             </code></pre>
             </section>
@@ -119,7 +118,7 @@ class ServiceTest extends Specification {
 import spock.lang.Specification
 
 class ServiceTest extends Specification {
-    def "my first Spock test" () {
+    def "basic Test" () {
         expect:
          true != false
     }
@@ -132,7 +131,7 @@ class ServiceTest extends Specification {
             <h3>Basic Test with Spock</h3>
             <pre>
                 <code class="groovy" data-trim data-line-numbers>
-    def "my first Spock test"() {
+    def "basic test"() {
         expect:
         true != false
     }
@@ -145,7 +144,7 @@ class ServiceTest extends Specification {
                 <h3>Mehr Struktur</h3>
                 <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
-    def "addition of two numbers works"() {
+    def "more elaborate test"() {
         when:
         def result = 8 + 2
         then:
@@ -159,9 +158,10 @@ class ServiceTest extends Specification {
                 <h3>Mehr Struktur</h3>
                 <pre data-id="code-animation3">
                 <code class="groovy" data-trim data-line-numbers>
-    def "addition of two numbers works"() {
+    def "more elaborate test"() {
         given:
         def a = 2
+        and:
         def b = 8
         when:
         def result = a + b
@@ -172,104 +172,6 @@ class ServiceTest extends Specification {
             </pre>
             </section>
         </section>
-
-        <section data-auto-animate>
-            <h3>Testing with Exceptions</h3>
-            <pre data-id="exceptions">
-        <code class="groovy" data-trim data-line-numbers>
-     def "test error"() {
-        when:
-        service.doSomething(null)
-        then:
-        thrown()
-    }
-        </code>
-    </pre>
-        </section>
-        <section data-auto-animate>
-            <h3>Testing with Exceptions</h3>
-            <pre data-id="exceptions">
-        <code class="groovy" data-trim data-line-numbers>
-     def "test error"() {
-        when:
-        service.doSomething(null)
-        then:
-        thrown(NullPointerException)
-    }
-        </code>
-    </pre>
-        </section>
-
-
-        <!-- MOCKING please make this more nicer -->
-        <!-- Vielleicht noch das mit dem blank hinzufuegen mock.doThis(_) -->
-        <section data-auto-animate >
-            <h3>Mocking</h3>
-            <pre data-id="mocking">
-                <code class="groovy" data-trim data-line-numbers>
-    def "service nutzt Mock"() {
-        given:
-        def RepositoryClass mockRepository = Mock()
-        when:
-        def result = service.findNumberInRepository()
-        then:
-        mockRepository.findNumber()
-        result == 42
-    }
-                </code>
-            </pre>
-        </section>
-        <section data-auto-animate >
-            <h3>Mocking</h3>
-            <pre data-id="mocking">
-                <code class="groovy" data-trim data-line-numbers>
-    def "service nutzt Mock"() {
-        given:
-        def RepositoryClass mockRepository = Mock()
-        when:
-        def result = service.findNumberInRepository()
-        then:
-        1 * mockRepository.findNumber()
-        result == 42
-    }
-                </code>
-            </pre>
-        </section>
-        <section data-auto-animate>
-            <h3>Mocking</h3>
-            <pre data-id="mocking">
-                <code class="groovy" data-trim data-line-numbers>
-    def "service nutzt Mock"() {
-        given:
-        def RepositoryClass mockRepository = Mock()
-        when:
-        def result = service.findNumberInRepository()
-        then:
-        1 * mockRepository.findNumber() >> 42
-        result == 42
-    }
-                </code>
-            </pre>
-        </section>
-
-        <section>
-            <h3>Mocking Part 2</h3>
-            <pre>
-                <code class="groovy" data-trim data-line-numbers>
-    def "service nutzt Mock/Stub "() {
-        given:
-        def RepositoryClass mockRepository = Mock()
-        1 * mockRepository.findNumber() >> 42
-        when:
-        def result = service.findNumberInRepository()
-        then:
-        result == 42
-    }
-                </code>
-            </pre>
-        </section>
-
-
         <!-- PARAMETERISIERTE TESTS UNROLL TESTS-->
 
         <section>
@@ -278,7 +180,7 @@ class ServiceTest extends Specification {
 
         <section>
             <h3>Junit</h3>
-            <!-- #See if there is an update -->
+            <!-- #WhyAreYOuSoUgly -->
             <pre>
                 <code class="java" data-trim data-line-numbers>
     @ParameterizedTest
@@ -342,8 +244,52 @@ class ServiceTest extends Specification {
             <img src="/images/spock-unroll.png" width=150% height=150%> <!-- height="100" width="200"> -->
         </section>
 
+        <!-- MOCKING -->
+        <section>
+            <h3>Mocking</h3>
+            <pre>
+                <code class="groovy" data-trim data-line-numbers>
+    def "service nutzt Mock"() {
+        given:
+        def RepositoryClass mockRepository = Mock()
+        when:
+        def result = service.findNumberInRepository()
+        then:
+        1 * mockRepository.findNumber() >> 42
+        result == 42
+    }
+                </code>
+            </pre>
+        </section>
 
-        <!-- LIVE DEMO //
+            <section data-auto-animate>
+                <h3>Testing with Exceptions</h3>
+                <pre data-id="exceptions">
+        <code class="groovy" data-trim data-line-numbers>
+     def "test error"() {
+        when:
+        service.doSomething(null)
+        then:
+        thrown()
+    }
+        </code>
+    </pre>
+            </section>
+            <section data-auto-animate>
+                <h3>Testing with Exceptions</h3>
+                <pre data-id="exceptions">
+        <code class="groovy" data-trim data-line-numbers>
+     def "test error"() {
+        when:
+        service.doSomething(null)
+        then:
+        thrown(NullPointerException)
+    }
+        </code>
+    </pre>
+            </section>
+
+        <!-- LIVE DEMO -->
         <section>
             <h3>Andere coole Sachen</h3>
             <p>@Ignore</p>
@@ -351,13 +297,12 @@ class ServiceTest extends Specification {
             <p>Spock reports</p>
             <p></p>
         </section>
-        -->
         <section>
             <h3>Live Coding</h3>
         </section>
         <section>
             <h3>Quellen</h3>
-            <p>https://spockframework.org/spock/docs/2.1/all_in_one.html</p>
+            <p>http://spockframework.org/spock/docs/1.3/all_in_one.html</p>
             <p>https://www.baeldung.com/groovy-spock</p>
             <p>https://github.com/matejo2/spock-groovy-demo</p>
         </section>
